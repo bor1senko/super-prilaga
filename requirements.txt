@@ -1,0 +1,11 @@
+Flask==0.12.2
+flask-command==0.0.3
+Flask-RESTful==0.3.6
+Flask-Script==2.0.5
+Flask-SQLAlchemy==2.2
+gunicorn==19.7.1
+Jinja2==2.9.6
+marshmallow==2.13.5
+pudb==2017.1.2
+SQLAlchemy==1.1.12
+Werkzeug==0.12.2
