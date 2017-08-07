@@ -1,10 +1,11 @@
 from models import *
 from flask.views import MethodView
-from schemas import SpienrSchema
+from schemas import SpinerSchema
 from flask import jsonify
 from flask import request
 from app1 import app1
 from ext import db
+
 
 class SpienrView(MethodView):
     order_fields = ['color', 'name', 'id']
@@ -15,7 +16,7 @@ class SpienrView(MethodView):
         self.queryset = Spiner.query
 
     def get(self, spiner_id=None):
-        ser = SpienrSchema(many=True)
+        ser = SpinerSchema(many=True)
         spiners = self.queryset
         if spiner_id is None:
 
@@ -27,17 +28,17 @@ class SpienrView(MethodView):
                 spiners = spiners.order_by(order_field)
             spiners = spiners.all()
         else:
-            spiners = [self.Spiner.query.get(spiner_id)]
+            spiners = [self.queryset.get(spiner_id)]
         data = ser.dump(spiners).data
         return jsonify(data)
+
     def post(self):
-        ser = SpienrSchema()
+        import pudb; pudb.set_trace();
+        ser = SpinerSchema()
         data = request.json
         spiner = ser.load(data, db.session).data
         spiner.save()
-        return jsonify(data), 201
-
-
+        return jsonify(ser.dump(spiner).data), 201
 
 
 spiner_view = SpienrView.as_view('spiner_api')

@@ -1,11 +1,11 @@
 from flask import Flask
-from settings import DevelopConfig
 from flask import render_template
+from settings import DevelopConfig
 
 import importlib
 
-class AppFactory(object):
 
+class AppFactory(object):
     def __init__(self, config=None):
         self.app_config = config
 
@@ -20,7 +20,7 @@ class AppFactory(object):
 
     def _register_blueprints(self):
         for path in self.app.config.get("BLUEPRINTS", []):
-            module_name,  blueprint_name = path.split('.')
+            module_name, blueprint_name = path.split('.')
             module = importlib.import_module(module_name)
             self.app.register_blueprint(getattr(module, blueprint_name))
 
@@ -31,6 +31,7 @@ class AppFactory(object):
 
 
 app = AppFactory(DevelopConfig).get_app(__name__)
+
 
 @app.route('/')
 def index():
