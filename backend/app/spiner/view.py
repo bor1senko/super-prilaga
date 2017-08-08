@@ -3,7 +3,7 @@ from flask.views import MethodView
 from schemas import SpinerSchema
 from flask import jsonify
 from flask import request
-from app1 import app1
+from spiner import spiner
 from ext import db
 
 
@@ -33,7 +33,6 @@ class SpienrView(MethodView):
         return jsonify(data)
 
     def post(self):
-        import pudb; pudb.set_trace();
         ser = SpinerSchema()
         data = request.json
         spiner = ser.load(data, db.session).data
@@ -43,5 +42,5 @@ class SpienrView(MethodView):
 
 spiner_view = SpienrView.as_view('spiner_api')
 
-app1.add_url_rule('spiner/', view_func=spiner_view, methods=['GET', 'POST'])
-app1.add_url_rule('spiner/<int:spiner_id>/', view_func=spiner_view, methods=['GET', 'PUT', 'DELETE', 'POST'])
+spiner.add_url_rule('spiner/', view_func=spiner_view, methods=['GET', 'POST'])
+spiner.add_url_rule('spiner/<int:spiner_id>/', view_func=spiner_view, methods=['GET', 'PUT', 'DELETE', 'POST'])

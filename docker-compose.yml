@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    build: db
+    environment:
+      - POSTGRES_PASSWORD=qwerty12345
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/app:/home/app
+    working_dir: /home/app
+    command: "python manage.py runserver -h 0.0.0.0 -p 5000"
